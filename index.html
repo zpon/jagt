@@ -1,0 +1,271 @@
+<html>
+<head>
+<title>Jagt</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+var ducks = new Array();
+//{'name' : 'duck', "male" : ["male.png", "male_wing.png"], "female" : ["female.png"]}
+ducks.push(create_animal_object('Gravand', ["GRAVA_HA.png"], ["GRAVAND_HU.png"]));
+ducks.push(create_animal_object('Gråand', ["GRAA_HAN.png", "GRAA_HAN_VINGE.png"], ["GRAA_HUN.png"]));
+ducks.push(create_animal_object('Knarand', ["KNAR_HAN.png"], ["KNAR_HUN.png"]));
+ducks.push(create_animal_object("Atlingand", ['ATLI_HAN.png'], ['ATLI_HUN.png']));
+ducks.push(create_animal_object("Krikand", ["KRIK_HAN.png", "KRIKA_HAN_VINGE.png"], ["KRIK_HUN.png"]));
+ducks.push(create_animal_object("Spidsand", ["SPIDS_HA.png", "SPIDSA_HAN_VINGE.png"], ["SPIDS_HU.png"]));
+ducks.push(create_animal_object("Pibeand", ["PIBE_HAN.png", "PIBEA_HAN_VINGE.png"], ["PIBE_HUN.png"]));
+ducks.push(create_animal_object("Skeand", ["SKEAN_HA.png"], ["SKEAN_HU.png"]));
+ducks.push(create_animal_object("Rødhovedet and", ["RODHO_HA.png"], ["RODHO_HU.png"]));
+ducks.push(create_animal_object("Taffeland", ["TAFF_HAN.png"], ["TAFF_HUN.png"]));
+ducks.push(create_animal_object("Troldand", ["TROLD_HA.png"], ["TROLD_HU.png"]));
+ducks.push(create_animal_object('Hvinand', ["HVINA_HA.png", "HVINA_HAN_VINGE.png"], ["HVINA_HU.png"]));
+ducks.push(create_animal_object('Bjergand', ["BJERG_HA.png"], ["BJERG_HU.png"]));
+ducks.push(create_animal_object('Havlit', ["HAVLI_HA.png"], ["HAVLI_HU.png"]));
+ducks.push(create_animal_object('Ederfugl', ["EDER_HAN.png", "EDERFU_HAN_VINGE.png"], ["EDER_HUN.png"]));
+ducks.push(create_animal_object('Sortand', ["SORTA_HA.png"], ["SORTA_HU.png"]));
+ducks.push(create_animal_object('Fløjelsand', ["FLOJ_HAN.png"], ["FLOJ_HUN.png"]));
+
+var waders = new Array();
+waders.push(create_single_sex_animal_object('Strandskade', ['STR_SKAD.png']));
+waders.push(create_single_sex_animal_object('Vibe', ['VIBE.png']));
+waders.push(create_single_sex_animal_object('Hjejle', ['HJEJLE.png']));
+waders.push(create_single_sex_animal_object('Stor regnspove', ['ST_REGN.png']));
+waders.push(create_single_sex_animal_object('Lille regnspove', ['LI_REGN.png']));
+waders.push(create_single_sex_animal_object('Lille kobbersneppe', ['L_KOBBER.png']));
+waders.push(create_single_sex_animal_object('Stor kobbersneppe', ['S_KOPPER.png']));
+waders.push(create_single_sex_animal_object('Rødben', ['ROEDBEN.png']));
+waders.push(create_single_sex_animal_object('Hvidklire', ['HVID_K.png']));
+waders.push(create_single_sex_animal_object('Dobbeltbekkasiner', ['DOBBEKKA.png']));
+waders.push(create_single_sex_animal_object('Enkeltbekkasiner', ['ENLEBEKK.png']));
+waders.push(create_single_sex_animal_object('Skovsneppe', ['SKOVSNEP.png']));
+waders.push(create_single_sex_animal_object('Klyde', ['KLYDE.png']));
+
+var pray_birds = new Array();
+pray_birds.push(create_single_sex_animal_object('Musvåge', ['MUSVAAG1.png', 'MUSVAAGE.png']));
+pray_birds.push(create_single_sex_animal_object('Spurvehøg', ['SPURHOG1.png', 'SPURVHOG.png']));
+pray_birds.push(create_single_sex_animal_object('Duehøg', ['DUEHOEG.png']));
+pray_birds.push(create_single_sex_animal_object('Rørhøg', ['RORHOEG.png']));
+pray_birds.push(create_single_sex_animal_object('Fiskeørn', ['FISKORN.png']));
+pray_birds.push(create_single_sex_animal_object('Tårnfalk', ['TFAL_HAN.png', 'TFAL_HUN.png']));
+
+var others = new Array();
+others.push(create_single_sex_animal_object('Rødstrubet lom', ['ROEDSTRULOM_VINT.png', 'RODS_LOM.png']));
+others.push(create_single_sex_animal_object('Toppet lappedykker', ['T_LAPPE.png']));
+others.push(create_single_sex_animal_object('Skarv', ['SKARV.png']));
+others.push(create_single_sex_animal_object('Fiskehejre', ['FISKEHJR.png', 'FISKEHJRF.png']));
+others.push(create_single_sex_animal_object('Sangsvane', ['SA_SVANE.png']));
+others.push(create_single_sex_animal_object('Pibesvane', ['PIBESVA1.png']));
+others.push(create_single_sex_animal_object('Knopsvane', ['KNPSVANE.png']));
+others.push(create_single_sex_animal_object('Sortsvane', ['SORTSVANE.png']));
+others.push(create_single_sex_animal_object('Stor skallesluger', ['SSKAL_HA.png', 'SSKAL_HU.png']));
+others.push(create_single_sex_animal_object('Toppet skallesluger', ['TSKAL_HA.png', 'TSKAL_HU.png']));
+
+var options = [
+        {'name' : 'Ænder', 'list' : ducks},
+        {'name' : 'Vadefugle', 'list' : waders},
+        {'name' : 'Rovfugle', 'list' : pray_birds},
+        {'name' : 'Andre', 'list' : others}
+]
+
+var testAnimal;
+var testSex;
+var last_half = new Array();
+var rightCount = 0;
+var wrongCount = 0;
+
+$(document).ready(function() {
+
+        $("#submit_button").click(function() {
+                if($('#choises :selected').val() == testAnimal.name) {
+                        $("#answer").prepend("Svar: " + $('#choises :selected').val() + " <span style=\"color: green\">Korrekt!</span><br/>");
+                        rightCount++;
+                        $("#right_guesses").html(rightCount);
+                        setRandomImages();
+                        console.log("c");
+                } else {
+                        $("#answer").prepend("Svar: " + $('#choises :selected').val() + " <span style=\"color: red\">Forkert!</span><br/>");
+                        wrongCount++;
+                        $("#wrong_guesses").html(wrongCount);
+                        console.log("f");
+                }
+        });
+        
+        for(var i = 0; i < options.length; i++) {
+                $("#group_choise").append('<option value="' + i + '">' + options[i]['name'] + '</option>');
+        }
+        
+        $("#show_correct_answer").click(function() {
+                $("#answer").prepend("SNYD!: " + testAnimal.name + "<br/>");
+        });
+        
+        $("#next_animal").click(function() {
+                setRandomImages();
+        });
+
+        setRandomImages();
+});
+
+function setRandomImages() {
+        var animal_group_number = $("#group_choise :selected").val();
+        var animal_group_name = options[animal_group_number].name;
+        if(animal_group_name == 'Ænder') {
+                multiple_sex_choise(options[animal_group_number].list);
+        } else {
+                single_sex_choise(options[animal_group_number].list);
+        }
+        // Return focus to option box
+        $("#choises").focus();
+}
+function multiple_sex_choise(animal_group) {
+        $("#choises").find("option").remove();
+        for(var i = 0; i < animal_group.length; i++) {
+                $("#choises").append('<option value="' + animal_group[i]['name'] + '">' + animal_group[i]['name'] + '</option>');
+        }
+        
+        var chosen = false;
+        while(chosen == false) {
+                var randomnumber=Math.floor(Math.random()*(animal_group.length));
+                var animal = animal_group[randomnumber];
+                chosen = true;
+                for(var i = 0; i < last_half.length; i++) {
+                        if(last_half[i] == animal.name) {
+                                chosen = false;
+                        }
+                }
+        }
+        if(last_half.length >= animal_group.length/2) {
+                last_half.shift();
+        }
+        last_half.push(animal.name);
+        
+        
+        var sexIdentifier;
+        var sexChoise = $("#sex_choise :selected").val();
+        if(sexChoise == 0) {
+                var maleOrFemale=Math.floor((Math.random()*2)+1); // 1 or 2
+                if(maleOrFemale == 1) {
+                        sexIdentifier = "male";
+                } else if(maleOrFemale == 2) {
+                        sexIdentifier = "female";
+                } else {
+                        alert("whaaaaaaat " + maleOrFemale);
+                }
+        } else if(sexChoise == 1) {
+                sexIdentifier = "male";
+        } else {
+                sexIdentifier = "female";
+        }
+        var flipImageRandom = Math.floor((Math.random()*2)+1);
+        if(flipImageRandom == 1) {
+                flipImage = true;
+        } else if(flipImageRandom == 2) {
+                flipImage = false;
+        } else {
+                alert("what flip image");
+        }
+        
+        var images = $("#images");
+        // Reset images
+        images.html("");
+        console.log(randomnumber + " " + maleOrFemale + " " + sexIdentifier + " " + animal['name']);
+        testAnimal = animal;
+        testSex = sexIdentifier;
+        for(var i = 0; i < animal[sexIdentifier].length; i++) {
+                images.append('<img ' + (flipImage ? 'class="flip-horizontal" ' : '') + ' src="images/'+animal[sexIdentifier][i]+'" />');
+        }
+}
+function single_sex_choise(animal_group) {
+        $("#choises").find("option").remove();
+        for(var i = 0; i < animal_group.length; i++) {
+                $("#choises").append('<option value="' + animal_group[i]['name'] + '">' + animal_group[i]['name'] + '</option>');
+        }
+
+        var chosen = false;
+        while(chosen == false) {
+                var randomnumber=Math.floor(Math.random()*(animal_group.length));
+                var animal = animal_group[randomnumber];
+                chosen = true;
+                for(var i = 0; i < last_half.length; i++) {
+                        if(last_half[i] == animal.name) {
+                                chosen = false;
+                        }
+                }
+        }
+        if(last_half.length >= animal_group.length/2) {
+                last_half.shift();
+        }
+        last_half.push(animal.name);
+        
+        var flipImageRandom = Math.floor((Math.random()*2)+1);
+        if(flipImageRandom == 1) {
+                flipImage = true;
+        } else if(flipImageRandom == 2) {
+                flipImage = false;
+        } else {
+                alert("what flip image");
+        }
+        
+        // If several images, choose one at random
+        var image;
+        if(animal.images.length > 1) {
+                var image_index = Math.floor((Math.random()*animal.images.length)+1)-1;
+                image = animal.images[image_index];
+        } else {
+                image = animal.images[0];
+        }
+        
+        var images = $("#images");
+        
+        // Reset images
+        images.html("");
+        
+        console.log(animal['name']);
+        testAnimal = animal;
+
+        images.append('<img ' + (flipImage ? 'class="flip-horizontal" ' : '') + ' src="images/'+image+'" />');
+}
+function create_animal_object(name, male_images, female_images) {
+        return {"name" : name, "male" : male_images, "female" : female_images};
+}
+function create_single_sex_animal_object(name, images) {
+        return {"name" : name, "images" : images};
+}
+</script>
+<style>
+.flip-horizontal {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    -ms-filter: fliph; /*IE*/
+    filter: fliph; /*IE*/
+}
+</style>
+</head>
+<body>
+<h1>Jagt test</h2>
+Hvilken fugle gruppe skal testes?
+<select id="group_choise">
+</select>
+Hvilket køn skal testes?
+<select id="sex_choise">
+        <option value="0">Begge køn</option>
+        <option value="1">Han</option>
+        <option value="2">Hun</option>
+</select>
+
+<!-- Div to set images in -->
+<div id="images"></div>
+
+<!-- Select box to hold answers -->
+<select id="choises"></select>
+<!-- Answer button -->
+<input id="submit_button" type="button" value="Svar" />
+<!-- Cheat button -->
+<input id="show_correct_answer" type="button" value="Vis svar" />
+<!-- Show next animal button -->
+<input id="next_animal" type="button" value="Næste dyr" />
+<!-- Right guesses -->
+<span style="color: green" id="right_guesses">0</span> / <span style="color: red;" id="wrong_guesses">0</span>
+<!-- Answer log -->
+<div id="answer" style="height: 200px; overflow: auto;"/>
+</body>
